@@ -41,6 +41,7 @@ defmodule Followers do
 
 end
 
+# get most recent 20 followers of user 42
 {:user, 42}
   |> Followers.following
   |> Red.limit(20)
@@ -48,18 +49,25 @@ end
 
 => [21, 666, 57]
 
+# get most recent 5 common followers of user 42 and 12
 [{:user, 42}, {:user, 12}]
   |> Followers.common_following
   |> Red.limit(5)
   |> Red.fetch!
 => [21]
 
-i_follow = {:user, 21}
-  |> Followers.followed_by
+# users followed by user 21
+i_follow = Followers.followed_by("user#21")
 
+# users followed by user 42, ordered according to the ones followed by user 21
 {:user, 42}
   |> Followers.followed_by
   |> Red.sort_by(i_follow)
   |> Red.fetch!
 
+
+# makes user 21 follow user 42
+{:user, 42}
+  |> Followers.following
+  |> Red.add({:user, 21})
 ```
