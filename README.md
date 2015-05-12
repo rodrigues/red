@@ -49,17 +49,18 @@ end
 
 => [21, 666, 57]
 
-# get most recent 5 common followers of user 42 and 12
+# get most recent 5 common followers of users 42 and 12
 [{:user, 42}, {:user, 12}]
   |> Followers.common_following
   |> Red.limit(5)
   |> Red.fetch!
 => [21]
 
-# users followed by user 21
+# users followed by 21
 i_follow = Followers.followed_by("user#21")
 
-# users followed by user 42, ordered according to the ones followed by user 21
+# users followed by 42,
+# showing users followed by 21 first
 {:user, 42}
   |> Followers.followed_by
   |> Red.sort_by(i_follow)
