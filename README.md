@@ -5,7 +5,9 @@ Red
 [![Hex version](https://img.shields.io/hexpm/v/red.svg "Hex version")](https://hex.pm/packages/red)
 ![Hex downloads](https://img.shields.io/hexpm/dt/red.svg "Hex downloads")
 
-An experiment with Elixir. Trying to port somehow [Hari](https://github.com/rodrigues/hari).
+Persist relationships between objects in Redis, in a graph-like way.
+
+**Note**: at this point, highly experimental. Not ready for production.
 
 ![](http://plusredelixir.com/wp-content/uploads/2012/02/new-power-elixir-can1.png)
 
