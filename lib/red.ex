@@ -27,7 +27,7 @@ defmodule Red do
 
     ## Examples
 
-    iex> "user#42" |> Red.node |> Red.rel(:in, :follow)
+    iex> "user#42" |> Red.rel(:in, :follow)
     %Red.Rel{
       name: :follow,
       direction: :in,
@@ -35,7 +35,7 @@ defmodule Red do
     }
   """
   def rel(node, direction, name) when direction in [:in, :out] do
-    %Red.Rel{name: name, direction: direction, node: node}
+    %Red.Rel{name: name, direction: direction, node: Red.node(node)}
   end
 
   def query(%Red.Rel{} = rel) do

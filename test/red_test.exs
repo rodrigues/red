@@ -4,7 +4,6 @@ defmodule RedTest do
 
   def user_followers do
     {:user, 42}
-      |> Red.node
       |> Red.rel(:out, :follow)
   end
 

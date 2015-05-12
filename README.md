@@ -17,13 +17,11 @@ defmodule Followers do
 
   def following(user) do
     user
-      |> Red.node
       |> Red.rel(:in, :follow)
   end
 
   def followed_by(user) do
     user
-      |> Red.node
       |> Red.rel(:out, :follow)
   end
 
