@@ -7,6 +7,8 @@ Red
 
 An experiment with Elixir. Trying to port somehow [Hari](https://github.com/rodrigues/hari).
 
+![](http://plusredelixir.com/wp-content/uploads/2012/02/new-power-elixir-can1.png)
+
 ### Relations
 
 ```elixir
