@@ -17,4 +17,11 @@ defmodule Red.Node do
     %Red.Node{class: class, id: id}
   end
 
+  def key(%Red.Node{} = node) do
+    case node.class do
+      nil -> node.id
+      _ -> "#{node.class}##{node.id}"
+    end
+  end
+
 end

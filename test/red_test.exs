@@ -2,6 +2,13 @@ defmodule RedTest do
   use ExUnit.Case
   doctest Red
 
+  setup do
+    Red.redis
+      |> Exredis.query ["FLUSHDB"]
+
+    :ok
+  end
+
   def user_followers do
     {:user, 42}
       |> Red.rel(:out, :follow)
@@ -45,6 +52,25 @@ defmodule RedTest do
       |> validate_query
 
     assert query.meta.offset == 13
+  end
+
+  test "offset, receiving a query" do
+    query = user_followers
+      |> Red.offset(13)
+      |> Red.offset(31)
+      |> validate_query
+
+    assert query.meta.offset == 31
+  end
+
+  test "create and fetch a relation" do
+    user_followers
+      |> Red.add!({:user, 21})
+
+    followers = user_followers
+      |> Red.fetch!
+
+    assert followers == ["user#21"]
   end
 
 end
