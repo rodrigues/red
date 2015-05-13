@@ -9,6 +9,8 @@ env:
   - ELIXIR_ERL_OPTIONS="+T 9"
 script:
   - mix test
+services:
+  - redis
 notifications:
   recipients:
     - vitumail@gmail.com
