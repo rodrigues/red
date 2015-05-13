@@ -73,4 +73,15 @@ defmodule RedTest do
     assert followers == ["user#21"]
   end
 
+  test "fetch with limit" do
+    user_followers
+      |> Red.add!([{:user, 21}, "user#30", "root"])
+
+    followers = user_followers
+      |> Red.limit(2)
+      |> Red.fetch!
+
+    assert length(followers) == 2
+  end
+
 end

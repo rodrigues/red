@@ -63,15 +63,24 @@ defmodule Red do
     %{query | meta: %{query.meta | offset: offset}}
   end
 
+  def add!(%Red.Rel{} = rel, end_nodes) when is_list(end_nodes) do
+    end_nodes
+      |> Stream.map(&Red.edge rel, &1)
+      |> Stream.map(&Red.Edge.ops &1, :add)
+      |> Enum.reduce(&(&2 ++ &1))
+      |> pipeline_exec
+  end
+
   def add!(%Red.Rel{} = rel, end_node) do
     rel
       |> Red.edge(end_node)
       |> Red.Edge.ops(:add)
-      |> exec_pipe
+      |> pipeline_exec
   end
 
   def fetch!(%Red.Rel{} = rel) do
-    query(rel)
+    rel
+      |> query
       |> fetch!
   end
 
@@ -91,7 +100,7 @@ defmodule Red do
       |> Exredis.query(op)
   end
 
-  defp exec_pipe(ops) do
+  defp pipeline_exec(ops) do
     redis
       |> Exredis.query_pipe(ops)
   end

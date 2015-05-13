@@ -29,13 +29,13 @@ defmodule Followers do
 
   def common_following(users) do
     users
-      |> Stream.map &(following &1)
+      |> Stream.map(&following &1)
       |> Red.intersect
   end
 
   def common_followed_by(users) do
     users
-      |> Stream.map &(followed_by &1)
+      |> Stream.map(&followed_by &1)
       |> Red.intersect
   end
 
