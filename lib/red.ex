@@ -79,16 +79,16 @@ defmodule Red do
 
   def add!(%Red.Rel{} = rel, end_nodes) when is_list(end_nodes) do
     end_nodes
-      |> Stream.map(&Red.edge rel, &1)
-      |> Stream.map(&Red.Edge.ops &1, :add)
-      |> Enum.reduce(&(&2 ++ &1))
-      |> Red.Client.pipeline_exec
+    |> Stream.map(&Red.edge rel, &1)
+    |> Stream.map(&Red.Edge.ops &1, :add)
+    |> Enum.reduce(&(&2 ++ &1))
+    |> Red.Client.pipeline_exec
   end
 
   def add!(%Red.Rel{} = rel, end_node) do
     rel
-      |> Red.edge(end_node)
-      |> Red.Edge.ops(:add)
-      |> Red.Client.pipeline_exec
+    |> Red.edge(end_node)
+    |> Red.Edge.ops(:add)
+    |> Red.Client.pipeline_exec
   end
 end

@@ -4,14 +4,14 @@ defmodule RedTest do
 
   setup do
     Red.Client.redis
-      |> Exredis.query ["FLUSHDB"]
+    |> Exredis.query ["FLUSHDB"]
 
     :ok
   end
 
   def user_followers do
     {:user, 42}
-      |> Red.rel(:follow)
+    |> Red.rel(:follow)
   end
 
   def validate_query(query) do
@@ -25,12 +25,13 @@ defmodule RedTest do
 
   test "query(relation)" do
     user_followers
-      |> Red.query
-      |> validate_query
+    |> Red.query
+    |> validate_query
   end
 
   test "limit, receiving relation" do
-    query = user_followers
+    query =
+      user_followers
       |> Red.limit(20)
       |> validate_query
 
@@ -38,7 +39,8 @@ defmodule RedTest do
   end
 
   test "limit, receiving a query" do
-    query = user_followers
+    query =
+      user_followers
       |> Red.limit(20)
       |> Red.limit(19)
       |> validate_query
@@ -47,7 +49,8 @@ defmodule RedTest do
   end
 
   test "offset, receiving relation" do
-    query = user_followers
+    query =
+      user_followers
       |> Red.offset(13)
       |> validate_query
 
@@ -55,7 +58,8 @@ defmodule RedTest do
   end
 
   test "offset, receiving a query" do
-    query = user_followers
+    query =
+      user_followers
       |> Red.offset(13)
       |> Red.offset(31)
       |> validate_query
@@ -65,9 +69,10 @@ defmodule RedTest do
 
   test "create and fetch a relation" do
     user_followers
-      |> Red.add!({:user, 21})
+    |> Red.add!({:user, 21})
 
-    followers = user_followers
+    followers =
+      user_followers
       |> Enum.to_list
 
     assert followers == ["user#21"]
@@ -75,9 +80,10 @@ defmodule RedTest do
 
   test "fetch with limit" do
     user_followers
-      |> Red.add!([{:user, 21}, "user#30", "root"])
+    |> Red.add!([{:user, 21}, "user#30", "root"])
 
-    followers = user_followers
+    followers =
+      user_followers
       |> Red.limit(2)
       |> Enum.to_list
 

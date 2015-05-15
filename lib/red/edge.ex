@@ -2,7 +2,8 @@ defmodule Red.Edge do
   defstruct rel: nil, target: nil
 
   def ops(%Red.Edge{} = edge, :add) do
-    [s, e] = [edge.rel.node, edge.target]
+    [s, e] =
+      [edge.rel.node, edge.target]
       |> Enum.map(&Red.key &1)
 
     if edge.rel.direction == :out, do: [s, e] = [e, s]
