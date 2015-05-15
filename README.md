@@ -11,22 +11,25 @@ Persist relationships between objects in Redis, in a graph-like way.
 ## Examples of what can be done now with `Red`
 
 ```elixir
-# gets 3 most recent users followed by user 42
+# gets all users followed by user 42
 "user#42"
-  |> Red.rel(:follow)
-  |> Red.limit(3)
-  |> Enum.to_list
+|> Red.rel(:follow, :out)
+|> Enum.to_list
 
-
-# gets all users that follow by user 42
+# gets all users that follow user 42
 "user#42"
-  |> Red.rel(:follow, :in)
-  |> Enum.to_list
+|> Red.rel(:follow, :in)
+|> Enum.to_list
 
-=> ["user#20", "user#22", "user#30"]
-
-# makes user 42 follow user 21
+# limits and offsets
 "user#42"
-  |> Red.rel(:follow)
-  |> Red.add!("user#21")
+|> Red.rel(:follow)
+|> Red.offset(2)
+|> Red.limit(3)
+|> Enum.to_list
+
+# creates edge (user#42–> :follow –> user#21)
+"user#42"
+|> Red.rel(:follow)
+|> Red.add!("user#21")
 ```
