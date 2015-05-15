@@ -8,10 +8,6 @@ Red
 
 Persist relationships between objects in Redis, in a graph-like way.
 
-**Note**: at this point, highly experimental. Not ready for production.
-
-![](http://plusredelixir.com/wp-content/uploads/2012/02/new-power-elixir-can1.png)
-
 ## Examples of what can be done now with `Red`
 
 ```elixir
