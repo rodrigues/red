@@ -17,7 +17,8 @@ defmodule Red.Mixfile do
   end
 
   defp deps do
-    [{:exredis, ">= 0.1.1"}]
+    [{:exredis, ">= 0.1.1"},
+     {:inch_ex, only: :docs}]
   end
 
   defp description do
