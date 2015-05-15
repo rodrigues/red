@@ -21,6 +21,8 @@ defmodule Red do
   """
   defdelegate node(n), to: Red.Node, as: :build
 
+  defdelegate key(x), to: Red.Key, as: :build
+
   @doc ~S"""
     Returns a relation.
 
@@ -59,7 +61,7 @@ defmodule Red do
     %Red.Query{queryable: rel}
   end
 
-  def key(x), do: Red.Key.build(x)
+
 
   def limit(%Red.Rel{} = rel, limit) do
     %{query(rel) | meta: %Red.Query.Meta{limit: limit}}
