@@ -2,6 +2,7 @@ Red
 ===
 
 [![Build status](https://img.shields.io/travis/rodrigues/red.svg "Build status")](https://travis-ci.org/rodrigues/red)
+[![Inline docs](http://inch-ci.org/github/rodrigues/red.svg?branch=master&style=flat)](http://inch-ci.org/github/rodrigues/red)
 [![Hex version](https://img.shields.io/hexpm/v/red.svg "Hex version")](https://hex.pm/packages/red)
 ![Hex downloads](https://img.shields.io/hexpm/dt/red.svg "Hex downloads")
 
