@@ -22,7 +22,7 @@ Persist relationships between objects in Redis, in a graph-like way.
   |> Enum.to_list
 
 
-# gets all users followed by user 42
+# gets all users that follow by user 42
 "user#42"
   |> Red.rel(:follow, :in)
   |> Enum.to_list
