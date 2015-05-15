@@ -1,4 +1,5 @@
 defmodule Red.Client do
+  @spec exec([String.t|number], String.t) :: {atom, String.t}
   def exec(args, command) do
     redis
     |> Exredis.query([command | args])
@@ -16,7 +17,7 @@ defmodule Red.Client do
     |> Exredis.start_using_connection_string
   end
 
-  def parse(result) do
+  defp parse(result) do
     {:ok, result}
   end
 end
