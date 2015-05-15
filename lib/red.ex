@@ -61,8 +61,6 @@ defmodule Red do
     %Red.Query{queryable: rel}
   end
 
-
-
   def limit(%Red.Rel{} = rel, limit) do
     %{query(rel) | meta: %Red.Query.Meta{limit: limit}}
   end
