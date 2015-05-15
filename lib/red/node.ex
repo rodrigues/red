@@ -1,5 +1,4 @@
 defmodule Red.Node do
-
   defstruct class: nil, id: nil
 
   def build(%Red.Node{} = n), do: n
@@ -16,12 +15,9 @@ defmodule Red.Node do
   def build({class, id}) do
     %Red.Node{class: class, id: id}
   end
+end
 
-  def key(%Red.Node{} = node) do
-    case node.class do
-      nil -> node.id
-      _ -> "#{node.class}##{node.id}"
-    end
-  end
-
+defimpl Red.Key, for: Red.Node do
+  def build(%{class: nil} = node), do: node.id
+  def build(node), do: "#{node.class}##{node.id}"
 end

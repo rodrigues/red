@@ -3,7 +3,7 @@ defmodule RedTest do
   doctest Red
 
   setup do
-    Red.redis
+    Red.Client.redis
       |> Exredis.query ["FLUSHDB"]
 
     :ok
@@ -11,7 +11,7 @@ defmodule RedTest do
 
   def user_followers do
     {:user, 42}
-      |> Red.rel(:out, :follow)
+      |> Red.rel(:follow)
   end
 
   def validate_query(query) do
@@ -68,7 +68,7 @@ defmodule RedTest do
       |> Red.add!({:user, 21})
 
     followers = user_followers
-      |> Red.fetch!
+      |> Enum.to_list
 
     assert followers == ["user#21"]
   end
@@ -79,7 +79,7 @@ defmodule RedTest do
 
     followers = user_followers
       |> Red.limit(2)
-      |> Red.fetch!
+      |> Enum.to_list
 
     assert length(followers) == 2
   end
