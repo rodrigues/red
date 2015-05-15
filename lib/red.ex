@@ -19,7 +19,7 @@ defmodule Red do
     iex> %Red.Node{id: 1} |> Red.node
     %Red.Node{id: 1}
   """
-  def node(n), do: Red.Node.build(n)
+  defdelegate node(n), to: Red.Node, as: :build
 
   @doc ~S"""
     Returns a relation.
