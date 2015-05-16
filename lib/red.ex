@@ -61,12 +61,14 @@ defmodule Red do
     %Red.Query{queryable: rel}
   end
 
-  def limit(%Red.Rel{} = rel, limit) do
-    %{query(rel) | meta: %Red.Query.Meta{limit: limit}}
+  def limit(%Red.Rel{} = rel, l) do
+    rel
+    |> query
+    |> limit(l)
   end
 
-  def limit(%Red.Query{} = query, limit) do
-    %{query | meta: %{query.meta | limit: limit}}
+  def limit(%Red.Query{} = query, l) do
+    %{query | meta: %{query.meta | limit: l}}
   end
 
   def offset(%Red.Rel{} = rel, offset) do
