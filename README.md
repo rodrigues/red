@@ -23,7 +23,7 @@ Persist relationships between objects in Redis, in a graph-like way.
 
 # limits and offsets
 "user#42"
-|> Red.rel(:follow)
+|> Red.rel(:follow) # default is :out
 |> Red.offset(2)
 |> Red.limit(3)
 |> Enum.to_list
@@ -32,4 +32,9 @@ Persist relationships between objects in Redis, in a graph-like way.
 "user#42"
 |> Red.rel(:follow)
 |> Red.add!("user#21")
+
+# creates multiple edges from user#42
+"user#42"
+|> Red.rel(:follow)
+|> Red.add!(["user#21", "user#12", "user#15"])
 ```
