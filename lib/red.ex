@@ -71,12 +71,14 @@ defmodule Red do
     %{query | meta: %{query.meta | limit: l}}
   end
 
-  def offset(%Red.Rel{} = rel, offset) do
-    %{query(rel) | meta: %Red.Query.Meta{offset: offset}}
+  def offset(%Red.Rel{} = rel, o) do
+    rel
+    |> query
+    |> offset(o)
   end
 
-  def offset(%Red.Query{} = query, offset) do
-    %{query | meta: %{query.meta | offset: offset}}
+  def offset(%Red.Query{} = query, o) do
+    %{query | meta: %{query.meta | offset: o}}
   end
 
   def add!(%Red.Rel{} = rel, end_nodes) when is_list(end_nodes) do
