@@ -57,25 +57,15 @@ defmodule Red do
     }
   end
 
-  def query(%Red.Rel{} = rel) do
-    %Red.Query{queryable: rel}
-  end
+  def query(%Red.Rel{} = rel), do: %Red.Query{queryable: rel}
 
-  def limit(%Red.Rel{} = rel, l) do
-    rel
-    |> query
-    |> limit(l)
-  end
+  def limit(%Red.Rel{} = rel, l), do: rel |> query |> limit(l)
 
   def limit(%Red.Query{} = query, l) do
     %{query | meta: %{query.meta | limit: l}}
   end
 
-  def offset(%Red.Rel{} = rel, o) do
-    rel
-    |> query
-    |> offset(o)
-  end
+  def offset(%Red.Rel{} = rel, o), do: rel |> query |> offset(o)
 
   def offset(%Red.Query{} = query, o) do
     %{query | meta: %{query.meta | offset: o}}

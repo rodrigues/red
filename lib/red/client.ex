@@ -12,11 +12,7 @@ defmodule Red.Client do
     |> Enum.map(&parse &1)
   end
 
-  def redis do
-    Exredis.start
-  end
+  def redis, do: Exredis.start
 
-  defp parse(result) do
-    {:ok, result}
-  end
+  defp parse(result), do: {:ok, result}
 end
