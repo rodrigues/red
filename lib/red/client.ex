@@ -13,8 +13,7 @@ defmodule Red.Client do
   end
 
   def redis do
-    "redis://127.0.0.1:6379/12"
-    |> Exredis.start_using_connection_string
+    Exredis.start
   end
 
   defp parse(result) do

@@ -1,2 +1,4 @@
-%{"eredis": {:hex, :eredis, "1.0.7"},
-  "exredis": {:hex, :exredis, "0.1.2"}}
+%{"eredis": {:hex, :eredis, "1.0.8"},
+  "exredis": {:hex, :exredis, "0.2.1"},
+  "inch_ex": {:hex, :inch_ex, "0.4.0"},
+  "poison": {:hex, :poison, "1.5.0"}}
