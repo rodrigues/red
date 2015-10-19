@@ -3,7 +3,7 @@ defmodule Red.Mixfile do
 
   def project do
     [app: :red,
-     version: "0.0.4",
+     version: "0.0.5",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -17,7 +17,7 @@ defmodule Red.Mixfile do
   end
 
   defp deps do
-    [{:exredis, ">= 0.1.1"},
+    [{:exredis, ">= 0.2.1"},
      {:inch_ex, only: :docs}]
   end
 
