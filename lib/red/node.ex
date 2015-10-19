@@ -12,12 +12,11 @@ defmodule Red.Node do
     end
   end
 
-  def build({class, id}) do
-    %Red.Node{class: class, id: id}
-  end
+  def build({class, id}), do: %Red.Node{class: class, id: id}
 end
 
 defimpl Red.Key, for: Red.Node do
   def build(%{class: nil} = node), do: node.id
+
   def build(node), do: "#{node.class}##{node.id}"
 end

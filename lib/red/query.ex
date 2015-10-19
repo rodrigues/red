@@ -10,6 +10,7 @@ defmodule Red.Query do
   end
 
   defp limit(%{meta: %{limit: -1}}), do: -1
+
   defp limit(%{meta: %{limit: l}}),  do: l - 1
 end
 
