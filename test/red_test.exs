@@ -3,9 +3,7 @@ defmodule RedTest do
   doctest Red
 
   setup do
-    Red.Client.redis
-    |> Exredis.query ["FLUSHDB"]
-
+    Red.Client.exec([], "FLUSHDB")
     :ok
   end
 

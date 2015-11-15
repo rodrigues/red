@@ -14,10 +14,6 @@ defmodule Red.Query do
   defp limit(%{meta: %{limit: l}}),  do: l - 1
 end
 
-defimpl Red.Key, for: Red.Query do
-  def build(query), do: Red.key(query.queryable)
-end
-
 defimpl Enumerable, for: Red.Query do
   def count(query) do
     query

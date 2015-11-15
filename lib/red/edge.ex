@@ -14,7 +14,3 @@ defmodule Red.Edge do
     ]
   end
 end
-
-defimpl Red.Key, for: Red.Edge do
-  def build(edge), do: Red.key(edge.rel)
-end

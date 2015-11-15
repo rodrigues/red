@@ -3,8 +3,8 @@ defmodule Red.Mixfile do
 
   def project do
     [app: :red,
-     version: "0.0.5",
-     elixir: "~> 1.0",
+     version: "0.0.6",
+     elixir: "~> 1.1",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps,
@@ -17,13 +17,15 @@ defmodule Red.Mixfile do
   end
 
   defp deps do
-    [{:exredis, ">= 0.2.1"},
-     {:inch_ex, only: :docs}]
+    [{:redix, ">= 0.3.0"},
+     {:inch_ex, only: :docs},
+     {:dogma, only: :dev}]
   end
 
   defp description do
     """
-    Red is an Elixir library that uses Redis to persist relationships between objects, like a graph.
+    Red is an Elixir library that uses Redis
+    to persist relationships between objects, like a graph.
     """
   end
 

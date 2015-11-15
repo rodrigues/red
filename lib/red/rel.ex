@@ -2,12 +2,6 @@ defmodule Red.Rel do
   defstruct name: nil, direction: :out, node: nil
 end
 
-defimpl Red.Key, for: Red.Rel do
-  def build(rel) do
-    "#{Red.key(rel.node)}:#{rel.name}:#{rel.direction}"
-  end
-end
-
 defimpl Enumerable, for: Red.Rel do
   def count(rel) do
     rel
