@@ -16,6 +16,9 @@ defmodule Red do
     iex> Red.node("key")
     %Red.Node{id: "key"}
 
+    iex> Red.node(user: 42)
+    %Red.Node{class: :user, id: 42}
+
     iex> %Red.Node{id: 1} |> Red.node
     %Red.Node{id: 1}
   """

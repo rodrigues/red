@@ -3,7 +3,7 @@ defmodule Red.Mixfile do
 
   def project do
     [app: :red,
-     version: "0.0.6",
+     version: "0.0.7",
      elixir: "~> 1.1",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,

@@ -1,9 +1,11 @@
 defmodule Red.Node do
   defstruct class: nil, id: nil
 
-  def build(%Red.Node{} = n), do: n
+  def build(%Red.Node{} = node), do: node
 
   def build(id) when is_integer(id), do: %Red.Node{id: id}
+
+  def build([{class, id}]), do: %Red.Node{class: class, id: id}
 
   def build(key) when is_bitstring(key) do
     case key |> String.split("#") do
