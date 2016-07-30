@@ -1,7 +1,9 @@
 defmodule Red.Query do
-  defstruct queryable: nil, meta: %Red.Query.Meta{}
+  alias Red.Query.Meta
 
-  def ops(%Red.Query{} = query, :fetch) do
+  defstruct queryable: nil, meta: %Meta{}
+
+  def ops(%__MODULE__{} = query, :fetch) do
     [
       Red.key(query),
       query.meta.offset,
@@ -15,23 +17,26 @@ defmodule Red.Query do
 end
 
 defimpl Enumerable, for: Red.Query do
+  alias Red.{Query, Client}
+
   def count(query) do
-    query
-    |> Red.key
-    |> Red.Client.exec("ZCARD")
+    with {:ok, count} <-
+      query
+      |> Red.key
+      |> Client.exec("ZCARD"), do: {:ok, count}
   end
 
   def member?(query, value) do
-    [query, value]
-    |> Enum.map(&Red.key &1)
-    |> Red.Client.exec("ZSCORE")
+    with {:ok, score} <-
+      [query, value]
+      |> Enum.map(&Red.key/1)
+      |> Client.exec("ZSCORE"), do: {:ok, !is_nil(score)}
   end
 
   def reduce(query, acc, fun) do
-    {:ok, collection} = query
-    |> Red.Query.ops(:fetch)
-    |> Red.Client.exec("ZREVRANGE")
-
-    Enumerable.reduce(collection, acc, fun)
+    query
+    |> Query.ops(:fetch)
+    |> Client.exec!("ZREVRANGE")
+    |> Enumerable.reduce(acc, fun)
   end
 end

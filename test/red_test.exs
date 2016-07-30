@@ -13,8 +13,8 @@ defmodule RedTest do
   end
 
   def validate_query(query) do
-    assert query.queryable.node.class == :user
-    assert query.queryable.node.id == 42
+    assert query.queryable.entity.class == :user
+    assert query.queryable.entity.id == 42
     assert query.queryable.direction == :out
     assert query.queryable.name == :follow
 

@@ -1,30 +1,32 @@
 defmodule Red do
+  alias Red.{Entity, Rel, Edge, Key, Query, Client}
+
   @doc ~S"""
-    Returns a node.
+    Returns a entity.
 
     ## Examples
 
-    iex> Red.node(1)
-    %Red.Node{id: 1}
+    iex> Red.entity(1)
+    %Red.Entity{id: 1}
 
-    iex> Red.node({:user, 42})
-    %Red.Node{class: :user, id: 42}
+    iex> Red.entity({:user, 42})
+    %Red.Entity{class: :user, id: 42}
 
-    iex> Red.node("user#42")
-    %Red.Node{class: "user", id: "42"}
+    iex> Red.entity("user#42")
+    %Red.Entity{class: "user", id: "42"}
 
-    iex> Red.node("key")
-    %Red.Node{id: "key"}
+    iex> Red.entity("key")
+    %Red.Entity{id: "key"}
 
-    iex> Red.node(user: 42)
-    %Red.Node{class: :user, id: 42}
+    iex> Red.entity(user: 42)
+    %Red.Entity{class: :user, id: 42}
 
-    iex> %Red.Node{id: 1} |> Red.node
-    %Red.Node{id: 1}
+    iex> %Red.Entity{id: 1} |> Red.entity
+    %Red.Entity{id: 1}
   """
-  defdelegate node(n), to: Red.Node, as: :build
+  defdelegate entity(n), to: Entity, as: :build
 
-  defdelegate key(x), to: Red.Key, as: :build
+  defdelegate key(x), to: Key, as: :build
 
   @doc ~S"""
     Returns a relation.
@@ -35,57 +37,57 @@ defmodule Red do
     %Red.Rel{
       name: :follow,
       direction: :out,
-      node: %Red.Node{class: "user", id: "42"}
+      entity: %Red.Entity{class: "user", id: "42"}
     }
 
     iex> {:user, 42} |> Red.rel(:follow, :in)
     %Red.Rel{
       name: :follow,
       direction: :in,
-      node: %Red.Node{class: :user, id: 42}
+      entity: %Red.Entity{class: :user, id: 42}
     }
   """
-  def rel(node, name, direction \\ :out) when direction in [:in, :out] do
-    %Red.Rel{
+  def rel(entity, name, direction \\ :out) when direction in [:in, :out] do
+    %Rel{
       name: name,
       direction: direction,
-      node: Red.node(node)
+      entity: Red.entity(entity)
     }
   end
 
-  def edge(%Red.Rel{} = rel, target_node) do
-    %Red.Edge{
+  def edge(%Rel{} = rel, target_entity) do
+    %Edge{
       rel: rel,
-      target: Red.node(target_node)
+      target: Red.entity(target_entity)
     }
   end
 
-  def query(%Red.Rel{} = rel), do: %Red.Query{queryable: rel}
+  def query(%Rel{} = rel), do: %Query{queryable: rel}
 
-  def limit(%Red.Rel{} = rel, l), do: rel |> query |> limit(l)
+  def limit(%Rel{} = rel, l), do: rel |> query |> limit(l)
 
-  def limit(%Red.Query{} = query, l) do
+  def limit(%Query{} = query, l) do
     %{query | meta: %{query.meta | limit: l}}
   end
 
-  def offset(%Red.Rel{} = rel, o), do: rel |> query |> offset(o)
+  def offset(%Rel{} = rel, o), do: rel |> query |> offset(o)
 
-  def offset(%Red.Query{} = query, o) do
+  def offset(%Query{} = query, o) do
     %{query | meta: %{query.meta | offset: o}}
   end
 
-  def add!(%Red.Rel{} = rel, end_nodes) when is_list(end_nodes) do
-    end_nodes
+  def add!(%Rel{} = rel, end_entities) when is_list(end_entities) do
+    end_entities
     |> Stream.map(&Red.edge rel, &1)
-    |> Stream.map(&Red.Edge.ops &1, :add)
+    |> Stream.map(&Edge.ops &1, :add)
     |> Enum.reduce(&(&2 ++ &1))
-    |> Red.Client.pipeline_exec
+    |> Client.pipeline_exec
   end
 
-  def add!(%Red.Rel{} = rel, end_node) do
+  def add!(%Red.Rel{} = rel, end_entity) do
     rel
-    |> Red.edge(end_node)
-    |> Red.Edge.ops(:add)
-    |> Red.Client.pipeline_exec
+    |> Red.edge(end_entity)
+    |> Edge.ops(:add)
+    |> Client.pipeline_exec
   end
 end

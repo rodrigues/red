@@ -1,5 +1,5 @@
 defmodule Red.Rel do
-  defstruct name: nil, direction: :out, node: nil
+  defstruct name: nil, direction: :out, entity: nil
 end
 
 defimpl Enumerable, for: Red.Rel do

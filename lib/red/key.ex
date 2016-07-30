@@ -1,15 +1,19 @@
 defmodule Red.Key do
-  def build(%Red.Rel{} = rel) do
-    "#{build(rel.node)}:#{rel.name}:#{rel.direction}"
+  alias Red.{Entity, Rel, Edge, Query}
+
+  def build(%Rel{} = rel) do
+    "#{build(rel.entity)}:#{rel.name}:#{rel.direction}"
   end
 
-  def build(%Red.Node{class: nil} = node), do: node.id
+  def build(%Entity{class: nil} = red_entity), do: red_entity.id
 
-  def build(%Red.Node{} = node), do: "#{node.class}##{node.id}"
+  def build(%Entity{} = red_entity), do: "#{red_entity.class}##{red_entity.id}"
 
-  def build(%Red.Query{} = query), do: build(query.queryable)
+  def build(%Query{} = query), do: build(query.queryable)
 
-  def build(%Red.Edge{} = edge), do: build(edge.rel)
+  def build(%Edge{} = edge), do: build(edge.rel)
 
-  def build(_), do: nil
+  def build({class, id}), do: build(%Entity{class: class, id: id})
+
+  def build(id) when is_number(id) or is_bitstring(id), do: "#{id}"
 end

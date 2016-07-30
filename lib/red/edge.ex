@@ -1,9 +1,9 @@
 defmodule Red.Edge do
   defstruct rel: nil, target: nil
 
-  def ops(%Red.Edge{} = edge, :add) do
+  def ops(%__MODULE__{} = edge, :add) do
     [origin, target] =
-      [edge.rel.node, edge.target]
+      [edge.rel.entity, edge.target]
       |> Enum.map(&Red.key &1)
       |> conform_to_direction(edge)
 
