@@ -11,7 +11,7 @@ defmodule Red.Mixfile do
 
      description: "Persists relations between entities in Redis",
 
-     package: [contributors: ["Victor Rodrigues"],
+     package: [maintainers: ["Victor Rodrigues"],
                licenses: ["Apache 2.0"],
                links: %{"GitHub" => "https://github.com/rodrigues/red"},
                files: ~w(mix.exs README.md lib)]]
