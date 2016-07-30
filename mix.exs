@@ -9,7 +9,7 @@ defmodule Red.Mixfile do
      start_permanent: Mix.env == :prod,
      deps: deps,
 
-     description: "Persists relationships between entities in Redis",
+     description: "Persists relations between entities in Redis",
 
      package: [contributors: ["Victor Rodrigues"],
                licenses: ["Apache 2.0"],

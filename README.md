@@ -6,7 +6,7 @@ Red
 [![Hex version](https://img.shields.io/hexpm/v/red.svg "Hex version")](https://hex.pm/packages/red)
 ![Hex downloads](https://img.shields.io/hexpm/dt/red.svg "Hex downloads")
 
-Persist relationships between objects in Redis, in a graph-like way.
+Persists relations between entities in Redis.
 
 ## Examples of what can be done now with `Red`
 
