@@ -9,7 +9,7 @@ defmodule RedTest do
 
   def user_followers do
     {:user, 42}
-    |> Red.rel(:follow)
+    |> Red.relation(:follow)
   end
 
   def validate_query(query) do

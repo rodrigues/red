@@ -1,5 +1,5 @@
 defmodule Red do
-  alias Red.{Entity, Rel, Edge, Key, Query, Client}
+  alias Red.{Entity, Relation, Edge, Key, Query, Client}
 
   @doc ~S"""
     Returns a entity.
@@ -33,59 +33,59 @@ defmodule Red do
 
     ## Examples
 
-    iex> "user#42" |> Red.rel(:follow)
-    %Red.Rel{
+    iex> "user#42" |> Red.relation(:follow)
+    %Red.Relation{
       name: :follow,
       direction: :out,
       entity: %Red.Entity{class: "user", id: "42"}
     }
 
-    iex> {:user, 42} |> Red.rel(:follow, :in)
-    %Red.Rel{
+    iex> {:user, 42} |> Red.relation(:follow, :in)
+    %Red.Relation{
       name: :follow,
       direction: :in,
       entity: %Red.Entity{class: :user, id: 42}
     }
   """
-  def rel(entity, name, direction \\ :out) when direction in [:in, :out] do
-    %Rel{
+  def relation(entity, name, direction \\ :out) when direction in [:in, :out] do
+    %Relation{
       name: name,
       direction: direction,
       entity: Red.entity(entity)
     }
   end
 
-  def edge(%Rel{} = rel, target_entity) do
+  def edge(%Relation{} = relation, target_entity) do
     %Edge{
-      rel: rel,
+      relation: relation,
       target: Red.entity(target_entity)
     }
   end
 
-  def query(%Rel{} = rel), do: %Query{queryable: rel}
+  def query(%Relation{} = relation), do: %Query{queryable: relation}
 
-  def limit(%Rel{} = rel, l), do: rel |> query |> limit(l)
+  def limit(%Relation{} = relation, l), do: relation |> query |> limit(l)
 
   def limit(%Query{} = query, l) do
     %{query | meta: %{query.meta | limit: l}}
   end
 
-  def offset(%Rel{} = rel, o), do: rel |> query |> offset(o)
+  def offset(%Relation{} = relation, o), do: relation |> query |> offset(o)
 
   def offset(%Query{} = query, o) do
     %{query | meta: %{query.meta | offset: o}}
   end
 
-  def add!(%Rel{} = rel, end_entities) when is_list(end_entities) do
+  def add!(%Relation{} = relation, end_entities) when is_list(end_entities) do
     end_entities
-    |> Stream.map(&Red.edge rel, &1)
+    |> Stream.map(&Red.edge relation, &1)
     |> Stream.map(&Edge.ops &1, :add)
     |> Enum.reduce(&(&2 ++ &1))
     |> Client.pipeline_exec
   end
 
-  def add!(%Red.Rel{} = rel, end_entity) do
-    rel
+  def add!(%Red.Relation{} = relation, end_entity) do
+    relation
     |> Red.edge(end_entity)
     |> Edge.ops(:add)
     |> Client.pipeline_exec

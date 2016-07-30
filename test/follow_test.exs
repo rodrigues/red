@@ -2,13 +2,13 @@ defmodule Follow do
   def followers(id) do
     id
     |> user_entity
-    |> Red.rel(:follow, :in)
+    |> Red.relation(:follow, :in)
   end
 
   def following(id) do
     id
     |> user_entity
-    |> Red.rel(:follow, :out)
+    |> Red.relation(:follow, :out)
   end
 
   def followers_count(id) do

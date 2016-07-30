@@ -13,28 +13,28 @@ Persists relations between entities in Redis.
 ```elixir
 # gets all users followed by user 42
 "user#42"
-|> Red.rel(:follow, :out)
+|> Red.relation(:follow, :out)
 |> Enum.to_list
 
 # gets all users that follow user 42
 "user#42"
-|> Red.rel(:follow, :in)
+|> Red.relation(:follow, :in)
 |> Enum.to_list
 
 # limits and offsets
 "user#42"
-|> Red.rel(:follow) # default is :out
+|> Red.relation(:follow) # default is :out
 |> Red.offset(2)
 |> Red.limit(3)
 |> Enum.to_list
 
 # creates edge (user#42–> :follow –> user#21)
 "user#42"
-|> Red.rel(:follow)
+|> Red.relation(:follow)
 |> Red.add!("user#21")
 
 # creates multiple edges from user#42
 "user#42"
-|> Red.rel(:follow)
+|> Red.relation(:follow)
 |> Red.add!(["user#21", "user#12", "user#15"])
 ```

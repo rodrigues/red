@@ -1,17 +1,17 @@
 defmodule Red.Key do
-  alias Red.{Entity, Rel, Edge, Query}
+  alias Red.{Entity, Relation, Edge, Query}
 
-  def build(%Rel{} = rel) do
-    "#{build(rel.entity)}:#{rel.name}:#{rel.direction}"
+  def build(%Relation{} = relation) do
+    "#{build(relation.entity)}:#{relation.name}:#{relation.direction}"
   end
 
-  def build(%Entity{class: nil} = red_entity), do: red_entity.id
+  def build(%Entity{class: nil} = entity), do: entity.id
 
-  def build(%Entity{} = red_entity), do: "#{red_entity.class}##{red_entity.id}"
+  def build(%Entity{} = entity), do: "#{entity.class}##{entity.id}"
 
   def build(%Query{} = query), do: build(query.queryable)
 
-  def build(%Edge{} = edge), do: build(edge.rel)
+  def build(%Edge{} = edge), do: build(edge.relation)
 
   def build({class, id}), do: build(%Entity{class: class, id: id})
 

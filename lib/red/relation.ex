@@ -1,22 +1,22 @@
-defmodule Red.Rel do
+defmodule Red.Relation do
   defstruct name: nil, direction: :out, entity: nil
 end
 
-defimpl Enumerable, for: Red.Rel do
-  def count(rel) do
-    rel
+defimpl Enumerable, for: Red.Relation do
+  def count(relation) do
+    relation
     |> Red.query
     |> Enumerable.count
   end
 
-  def member?(rel, value) do
-    rel
+  def member?(relation, value) do
+    relation
     |> Red.query
     |> Enumerable.member?(value)
   end
 
-  def reduce(rel, acc, fun) do
-    rel
+  def reduce(relation, acc, fun) do
+    relation
     |> Red.query
     |> Enumerable.reduce(acc, fun)
   end
