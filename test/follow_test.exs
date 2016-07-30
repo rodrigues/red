@@ -56,16 +56,19 @@ defmodule FollowTest do
     {:ok, _} = create(1, 2) # user#1 ~> follow ~> user#2
     {:ok, _} = create(3, 2) # user#3 ~> follow ~> user#2
 
-    assert following(1) |> Enum.to_list == ["user#2"]
+    followers(2)
+    |> Red.add!({:user, 42})
+
+    assert following(1) |> Enum.to_list == ~w(user#2)
     assert following(2) |> Enum.to_list == []
-    assert followers(2) |> Enum.to_list == ["user#3", "user#1"]
+    assert followers(2) |> Enum.to_list == ~w(user#42 user#3 user#1)
 
     assert following?(1, 2)
     assert followed_by?(2, 1)
     assert following?(3, 2)
 
     assert followers_count(1) == 0
-    assert followers_count(2) == 2
+    assert followers_count(2) == 3
     assert followers_count(3) == 0
 
     assert following_count(1) == 1
