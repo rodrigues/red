@@ -1,6 +1,7 @@
 defmodule Red.Key do
   alias Red.{Entity, Relation, Edge, Query}
 
+  @spec build(Query.queryable_t) :: String.t
   def build(%Relation{} = relation) do
     "#{build(relation.entity)}:#{relation.name}:#{relation.direction}"
   end
@@ -9,11 +10,13 @@ defmodule Red.Key do
 
   def build(%Entity{} = entity), do: "#{entity.class}##{entity.id}"
 
-  def build(%Query{} = query), do: build(query.queryable)
+  def build(%Query{} = query), do: query.queryable |> build
 
-  def build(%Edge{} = edge), do: build(edge.relation)
+  def build(%Edge{} = edge), do: edge.relation |> build
 
-  def build({class, id}), do: build(%Entity{class: class, id: id})
+  def build({class, id}), do: %Entity{class: class, id: id} |> build
 
-  def build(id) when is_number(id) or is_bitstring(id), do: "#{id}"
+  def build(id) when is_number(id), do: id |> to_string |> build
+
+  def build(id) when is_bitstring(id), do: id
 end

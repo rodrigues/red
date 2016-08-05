@@ -1,7 +1,17 @@
 defmodule Red.Query do
   alias Red.Query.Meta
+  alias Red.{Relation, Entity, Query, Edge}
 
   defstruct queryable: nil, meta: %Meta{}
+
+  @type queryable_t :: %Relation{} |
+                       %Entity{} |
+                       %Query{} |
+                       %Edge{} |
+                       {Entity.class_t, Entity.id_t} |
+                       Entity.id_t
+
+  @type t :: %Red.Query{queryable: queryable_t, meta: Meta.t}
 
   def ops(%__MODULE__{} = query, :fetch) do
     [
