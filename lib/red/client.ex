@@ -1,9 +1,8 @@
 defmodule Red.Client do
   @type args :: [String.t | number, ...] | (String.t | number)
 
-
   @type redix_result :: {:ok, Redix.Protocol.redis_value} |
-                     {:error, atom | Redix.Error.t}
+                        {:error, atom | Redix.Error.t}
 
   @spec exec(args, String.t) :: redix_result
   def exec(args, command) when is_list(args) do
