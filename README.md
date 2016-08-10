@@ -1,11 +1,12 @@
 Red
 ===
 
-[![Build status](https://img.shields.io/travis/rodrigues/red.svg "Build status")](https://travis-ci.org/rodrigues/red)
-[![Inline docs](http://inch-ci.org/github/rodrigues/red.svg?branch=master&style=flat)](http://hexdocs.pm/red)
 [![Hex version](https://img.shields.io/hexpm/v/red.svg "Hex version")](https://hex.pm/packages/red)
-![Hex downloads](https://img.shields.io/hexpm/dt/red.svg "Hex downloads")
+[![Build status](https://img.shields.io/travis/rodrigues/red.svg "Build status")](https://travis-ci.org/rodrigues/red)
 [![Deps Status](https://beta.hexfaktor.org/badge/all/github/rodrigues/red.svg)](https://beta.hexfaktor.org/github/rodrigues/red)
+[![Inline docs](http://inch-ci.org/github/rodrigues/red.svg?branch=master&style=flat)](http://hexdocs.pm/red)
+![Hex downloads](https://img.shields.io/hexpm/dt/red.svg "Hex downloads")
+
 
 Persists relations between entities in Redis.
 
