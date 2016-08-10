@@ -5,6 +5,7 @@ Red
 [![Inline docs](http://inch-ci.org/github/rodrigues/red.svg?branch=master&style=flat)](http://hexdocs.pm/red)
 [![Hex version](https://img.shields.io/hexpm/v/red.svg "Hex version")](https://hex.pm/packages/red)
 ![Hex downloads](https://img.shields.io/hexpm/dt/red.svg "Hex downloads")
+[![Deps Status](https://beta.hexfaktor.org/badge/all/github/rodrigues/red.svg)](https://beta.hexfaktor.org/github/rodrigues/red)
 
 Persists relations between entities in Redis.
 
