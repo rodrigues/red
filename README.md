@@ -7,36 +7,32 @@ Red
 [![Inline docs](http://inch-ci.org/github/rodrigues/red.svg?branch=master&style=flat)](http://hexdocs.pm/red)
 ![Hex downloads](https://img.shields.io/hexpm/dt/red.svg "Hex downloads")
 
+Store relations between entities using [redis](http://redis.io).
 
-Persists relations between entities in Redis.
-
-## Examples of what can be done now with `Red`
+## Example: A `follow` system
 
 ```elixir
-# gets all users followed by user 42
-"user#42"
-|> Red.relation(:follow, :out)
-|> Enum.to_list
+import Red
 
-# gets all users that follow user 42
-"user#42"
-|> Red.relation(:follow, :in)
-|> Enum.to_list
+# @vcr2 -{follow}-> @hex_pm
 
-# limits and offsets
-"user#42"
-|> Red.relation(:follow) # default is :out
-|> Red.offset(2)
-|> Red.limit(3)
-|> Enum.to_list
+{:ok, _} =
+  "@vcr2"
+  |> relation(:follow)
+  |> add!("@hex_pm")
 
-# creates edge (user#42–> :follow –> user#21)
-"user#42"
-|> Red.relation(:follow)
-|> Red.add!("user#21")
+"@vcr2" |> relation(:follow) |> Enum.at(0)
+> "@hex_pm"
 
-# creates multiple edges from user#42
-"user#42"
-|> Red.relation(:follow)
-|> Red.add!(["user#21", "user#12", "user#15"])
+# @vcr2 ===follow===> *
+count_following = "@vcr2" |> relation(:follow) |> Enum.count
+> 100
+
+# @vcr2 <===follow=== *
+count_followers = "@vcr2" |> relation(:follow, :in) |> Enum.count
+> 43
+
+# jump 10, next 5
+"@vcr2" |> relation(:follow) |> offset(10) |> limit(5) |> Enum.to_list
+> []
 ```

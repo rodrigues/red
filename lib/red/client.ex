@@ -1,4 +1,8 @@
 defmodule Red.Client do
+  @moduledoc """
+  A interface to talk with [redis](http://redis.io), through `Redix`.
+  """
+
   @type args :: [String.t | number, ...] | (String.t | number)
 
   @type redix_result :: {:ok, Redix.Protocol.redis_value} |
