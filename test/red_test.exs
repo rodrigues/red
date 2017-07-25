@@ -22,14 +22,14 @@ defmodule RedTest do
   end
 
   test "query(relation)" do
-    user_followers
+    user_followers()
     |> Red.query
     |> validate_query
   end
 
   test "limit, receiving relation" do
     query =
-      user_followers
+      user_followers()
       |> Red.limit(20)
       |> validate_query
 
@@ -38,7 +38,7 @@ defmodule RedTest do
 
   test "limit, receiving a query" do
     query =
-      user_followers
+      user_followers()
       |> Red.limit(20)
       |> Red.limit(19)
       |> validate_query
@@ -48,7 +48,7 @@ defmodule RedTest do
 
   test "offset, receiving relation" do
     query =
-      user_followers
+      user_followers()
       |> Red.offset(13)
       |> validate_query
 
@@ -57,7 +57,7 @@ defmodule RedTest do
 
   test "offset, receiving a query" do
     query =
-      user_followers
+      user_followers()
       |> Red.offset(13)
       |> Red.offset(31)
       |> validate_query
@@ -66,22 +66,22 @@ defmodule RedTest do
   end
 
   test "create and fetch a relation" do
-    user_followers
+    user_followers()
     |> Red.add!({:user, 21})
 
     followers =
-      user_followers
+      user_followers()
       |> Enum.to_list
 
     assert followers == ["user#21"]
   end
 
   test "fetch with limit" do
-    user_followers
+    user_followers()
     |> Red.add!([{:user, 21}, "user#30", "root"])
 
     followers =
-      user_followers
+      user_followers()
       |> Red.limit(2)
       |> Enum.to_list
 

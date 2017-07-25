@@ -10,7 +10,7 @@ defmodule Red.Client do
 
   @spec exec(args, String.t) :: redix_result
   def exec(args, command) when is_list(args) do
-    redis
+    redis()
     |> Redix.command([command] ++ args)
   end
 
@@ -24,7 +24,7 @@ defmodule Red.Client do
 
   @spec pipeline_exec([args]) :: redix_result
   def pipeline_exec(ops) when is_list(ops) do
-    redis
+    redis()
     |> Redix.pipeline(ops)
   end
 
