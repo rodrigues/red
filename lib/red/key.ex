@@ -1,6 +1,11 @@
 defmodule Red.Key do
   alias Red.{Entity, Relation, Edge, Query}
 
+  @moduledoc ~S"""
+  Provides utilities for building redis keys
+  """
+
+  @doc "See `Red.key/1` for examples"
   @spec build(Query.queryable_t) :: String.t
   def build(%Relation{} = relation) do
     "#{build(relation.entity)}:#{relation.name}:#{relation.direction}"
@@ -15,6 +20,8 @@ defmodule Red.Key do
   def build(%Edge{} = edge), do: edge.relation |> build
 
   def build({class, id}), do: %Entity{class: class, id: id} |> build
+
+  def build([{class, id}]), do: {class, id} |> build
 
   def build(id) when is_number(id), do: id |> to_string |> build
 

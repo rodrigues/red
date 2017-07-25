@@ -21,18 +21,8 @@ defmodule Red.Entity do
   @type conversible_to_entity :: t | String.t |
     id_t | {class_t, id_t} | [{class_t, id_t}, ...]
 
+  @doc "See `Red.entity/1` for examples"
   @spec build(conversible_to_entity) :: t
-  @doc """
-  Builds one entity.
-
-  Examples:
-
-      > Red.Entity.build("45b8e48")
-      %Red.Entity{id: "45b8e48", class: nil}
-
-      > Red.Entity.build({:user, 42})
-      %Red.Entity{id: 42, class: :user}
-  """
   def build(%__MODULE__{} = entity), do: entity
 
   def build(id) when is_integer(id), do: %__MODULE__{id: id}
