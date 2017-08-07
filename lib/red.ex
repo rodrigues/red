@@ -1,6 +1,29 @@
 defmodule Red do
   alias Red.{Entity, Relation, Edge, Key, Query, Client}
 
+  @moduledoc ~S"""
+  Provides the main functions to work with Red.
+
+  ## Examples
+
+      iex> {:ok, _} = "@vcr2" |> Red.relation(:follow) |> Red.add!("@hex_pm")
+      ...> "@vcr2" |> Red.relation(:follow) |> Enum.at(0)
+      "@hex_pm"
+
+      iex> "@vcr2" |> Red.relation(:follow) |> Red.add!(["@elixirlang", "@elixirphoenix"])
+      ...> "@vcr2" |> Red.relation(:follow) |> Enum.count
+      2
+
+      iex> {:ok, _} = "@elixirlang" |> Red.relation(:follow) |> Red.add!("@vcr2")
+      ...> "@vcr2" |> Red.relation(:follow, :in) |> Enum.count
+      1
+
+      iex> {:ok, _} = "@vcr2" |> Red.relation(:follow) |> Red.add!(~w(@a @b @c @d @e @f @g @h @i @j @k))
+      ...> "@vcr2" |> Red.relation(:follow) |> Red.offset(3) |> Red.limit(5) |> Enum.to_list
+      ["@h", "@g"]
+      ```
+  """
+
   @doc ~S"""
   Returns the redis key corresponding to queryable passed as argument.
 
