@@ -21,7 +21,6 @@ defmodule Red do
       iex> {:ok, _} = "@vcr2" |> Red.relation(:follow) |> Red.add!(~w(@a @b @c @d @e @f @g @h @i @j @k))
       ...> "@vcr2" |> Red.relation(:follow) |> Red.offset(3) |> Red.limit(5) |> Enum.to_list
       ["@h", "@g"]
-      ```
   """
 
   @doc ~S"""
